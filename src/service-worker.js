@@ -16,3 +16,8 @@ workbox.precaching.precacheAndRoute(
     "https://fonts.googleapis.com/css?family=Roboto:400,700"
   ].concat(self.__precacheManifest)
 );
+
+
+workbox.routing.registerNavigationRoute(
+    workbox.precaching.getCacheKeyForURL('/index.html')
+);
