@@ -1,23 +1,14 @@
-importScripts("/AssetsManager.js");
+importScripts("/precache-manifest.51c7ecb006cad78ce98ffd8e9549dfac.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
-let assetsManager = new AssetsManager(); //create an instance of AssetsManager
+workbox.precaching.cleanupOutdatedCaches();
 
-self.addEventListener("install", event => {
-  event.waitUntil(assetsManager.addAllToCache());
+workbox.core.setCacheNameDetails({
+    prefix: "appCache"
 });
 
-self.addEventListener("activate", event => {
-  event.waitUntil(assetsManager.removeNotInAssets());
-});
+workbox.core.clientsClaim();
 
-self.addEventListener("fetch", function(event) {
-  if (event.request.method !== "GET") {
-    return;
-  }
-  // Cache then network
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    })
-  );
-});
+workbox.core.skipWaiting();
+
+workbox.precaching.precacheAndRoute(["https://use.fontawesome.com/releases/v5.8.2/css/all.css", "https://fonts.googleapis.com/css?family=Roboto:400,700"].concat(self.__precacheManifest));
+

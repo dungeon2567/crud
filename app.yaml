@@ -1,10 +1,6 @@
 ﻿runtime: nodejs10
 
 handlers:
-- url: /manifest.json
-  script: auto
-  secure: always
-
 - url: /css
   static_dir: dist/css
   secure: always
@@ -18,15 +14,23 @@ handlers:
   secure: always
 
 - url: /js
+  mime_type: text/javascript
   static_dir: dist/js
   secure: always
 
-- url: /(.*\.(js|ico|txt|html))$
+- url: /(.*\.js)$
+  mime_type: text/javascript
   static_files: dist/\1
-  upload: dist/.*\.(js|ico|txt|html)$
+  upload: dist/.*\.js$
   secure: always
 
-- url: /*
+- url: /(.*\.(ico|txt|json))$
+  static_files: dist/\1
+  upload: dist/.*\.(ico|txt|json)$
+  secure: always
+
+- url: '/(.*)'
+  mime_type: text/html
   static_files: dist/index.html
   upload: dist/index.html
   secure: always

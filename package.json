@@ -14,6 +14,7 @@
     "popper.js": "^1.15.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^2.0.0",
+    "register-service-worker": "^1.6.2",
     "resize-observer-polyfill": "^1.5.0",
     "style-loader": "^0.23.1",
     "vue": "^2.6.10",
@@ -29,8 +30,8 @@
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
-    "sw-cache-plugin": "^1.0.1",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "workbox-cli": "^4.3.1"
   },
   "postcss": {
     "plugins": {

@@ -1,13 +1,12 @@
-const swCachePlugin = require("sw-cache-plugin");
+const {InjectManifest} = require('workbox-webpack-plugin');
 
 module.exports = {
-    configureWebpack: {
+    webpackConfiguration: {
         plugins: [
-            new swCachePlugin({
-             cacheName:"appCache",
-             ignore:[/.*\.map$/,/boot.*/],
-             include:['/','/other'] })
-         ]
+            new InjectManifest({
+              swSrc: './src/service-worker  .js',
+            })
+          ]
     },
     devServer: {
         open: true,
