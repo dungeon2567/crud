@@ -70,13 +70,13 @@ export default {
       this.bold = document.queryCommandState("bold");
       this.italic = document.queryCommandState("italic");
       this.underline = document.queryCommandState("underline");
-      this.alignment = document.queryCommandState("justifyLeft")
-        ? "left"
+      this.alignment = document.queryCommandState("justifyRight")
+        ? "right"
         : document.queryCommandState("justifyCenter")
         ? "center"
         : document.queryCommandState("justifyFull")
         ? "justify"
-        : "right";
+        : "left";
     },
     handleFocus() {
       document.addEventListener("selectionchange", this.refreshToolbar);

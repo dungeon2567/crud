@@ -2,11 +2,12 @@
 import Overlay from "@/components/Overlay.vue";
 import Button from "@/components/Button.vue";
 import TextInput from "@/components/TextInput.vue";
+import DateInput from "@/components/DateInput.vue";
 import RichTextInput from "@/components/RichTextInput.vue";
 import Radio from "@/components/Radio.vue";
 import Tabs from "@/components/Tabs.vue";
 import InnerLoading from "@/components/InnerLoading.vue";
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
 
 export default {
   props: {
@@ -70,6 +71,12 @@ export default {
           let errorList = [];
 
           switch (field.type) {
+            case "date":
+              if (!field.optional && !this.state[field.name]) {
+                errorList.push(`${field.label} é obrigatório`);
+              }
+
+              break;
             case "text":
               if (!field.optional && !this.state[field.name]) {
                 errorList.push(`${field.label} é obrigatório`);
@@ -97,6 +104,14 @@ export default {
     },
     renderFieldInput(field) {
       switch (field.type) {
+        case "date":
+          return (
+            <DateInput
+              onFocus={() => this.$delete(this.errors, field.name)}
+              onInput={val => this.$set(this.state, field.name, val)}
+              value={this.state[field.name]}
+            />
+          );
         case "text": {
           const directives = field.mask
             ? [

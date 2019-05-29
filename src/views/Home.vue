@@ -91,7 +91,7 @@ export default {
                 {
                   name: "apelido",
                   label: "Apelido",
-                  type: "text"
+                  type: "date"
                 },
                 {
                   name: "identidade",

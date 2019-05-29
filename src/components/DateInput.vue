@@ -1,7 +1,6 @@
 <style>
 .date-input {
   min-width: 90px;
-  width: 90px;
 }
 </style>
 <template>
