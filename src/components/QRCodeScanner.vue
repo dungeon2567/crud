@@ -28,11 +28,22 @@ export default {
         .decodeFromInputVideoDevice(undefined, this.$refs.video)
         .then(result => {
           this.accept(result.text);
+          this.codeReader.reset();
+          this.codeReader = null;
         })
         .catch(err => {
           this.reject(err);
+          this.codeReader.reset();
+          this.codeReader = null;
         });
     });
+  },
+
+  destroyed(){
+    if(this.codeReader){
+      this.codeReader.reset();
+      this.codeReader = null;
+    }
   },
 
   render(h) {
