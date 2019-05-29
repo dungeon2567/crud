@@ -7,31 +7,29 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.4.2",
-    "@zxing/library": "^0.12.3",
+    "@babel/preset-env": "^7.4.5",
+    "@zxing/library": "^0.12.4",
     "cuid": "^2.1.6",
     "normalize.css": "^8.0.1",
-    "popper.js": "^1.14.7",
+    "popper.js": "^1.15.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^2.0.0",
-    "register-service-worker": "^1.6.2",
     "resize-observer-polyfill": "^1.5.0",
     "style-loader": "^0.23.1",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.2",
+    "vue-router": "^3.0.6",
     "vue-the-mask": "^0.11.1",
-    "vuex": "^3.1.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.1",
-    "@vue/cli-plugin-pwa": "^3.5.1",
-    "@vue/cli-service": "^3.5.1",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
+    "sw-cache-plugin": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {

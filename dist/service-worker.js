@@ -1,29 +1,23 @@
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
+importScripts("/AssetsManager.js");
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+let assetsManager = new AssetsManager(); //create an instance of AssetsManager
 
-importScripts(
-  "/precache-manifest.ff25f62d501683dd4064f57eca2a5c5b.js"
-);
+self.addEventListener("install", event => {
+  event.waitUntil(assetsManager.addAllToCache());
+});
 
-workbox.core.setCacheNameDetails({prefix: "beautiful-ui"});
+self.addEventListener("activate", event => {
+  event.waitUntil(assetsManager.removeNotInAssets());
+});
 
-/**
- * The workboxSW.precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+self.addEventListener("fetch", function(event) {
+  if (event.request.method !== "GET") {
+    return;
+  }
+  // Cache then network
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
+});

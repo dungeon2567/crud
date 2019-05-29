@@ -1,6 +1,13 @@
+const swCachePlugin = require("sw-cache-plugin");
+
 module.exports = {
     configureWebpack: {
-
+        plugins: [
+            new swCachePlugin({
+             cacheName:"appCache",
+             ignore:[/.*\.map$/,/boot.*/],
+             include:['/','/other'] })
+         ]
     },
     devServer: {
         open: true,
