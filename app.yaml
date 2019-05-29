@@ -1,0 +1,32 @@
+﻿runtime: nodejs10
+
+handlers:
+- url: /manifest.json
+  script: auto
+  secure: always
+
+- url: /css
+  static_dir: dist/css
+  secure: always
+
+- url: /img
+  static_dir: dist/img
+  secure: always
+
+- url: /img/icons
+  static_dir: dist/img/icons
+  secure: always
+
+- url: /js
+  static_dir: dist/js
+  secure: always
+
+- url: /(.*\.(js|ico|txt|html))$
+  static_files: dist/\1
+  upload: dist/.*\.(js|ico|txt|html)$
+  secure: always
+
+- url: /*
+  static_files: dist/index.html
+  upload: dist/index.html
+  secure: always
