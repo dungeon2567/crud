@@ -6,7 +6,6 @@ import money from './money-directive';
 
 import "normalize.css";
 import './app.css';
-import "./date-reviver.js";
 import './date-utils.js';
 
 import Button from "./components/Button.vue";
