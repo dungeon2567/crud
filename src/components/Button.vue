@@ -27,7 +27,7 @@ button {
   justify-content: center;
   vertical-align: middle;
   text-align: center;
-  font-size: 12px!important;
+  font-size: 12px !important;
   font-weight: bold;
   min-width: 30px;
   min-height: 30px;
@@ -118,6 +118,17 @@ button.danger.active {
   background-color: var(--danger-color-active);
 }
 
+button.danger:disabled {
+  color: rgba(92, 112, 128, 0.5);
+  cursor: not-allowed !important;
+  border-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: rgba(219, 55, 55, 0.5);
+  background-image: none;
+  color: hsla(0, 0%, 100%, 0.6);
+}
+
 button.minimal {
   box-shadow: none;
   background: none;
@@ -163,11 +174,4 @@ button.small {
   min-height: 24px;
 }
 
-button:disabled {
-  color: rgba(92, 112, 128, 0.5);
-  cursor: not-allowed !important;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
 </style>

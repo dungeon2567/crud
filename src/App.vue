@@ -46,57 +46,43 @@ export default {
                 style="width: 100%; padding-left: 50px; padding-right: 50px;"
               />
               <CollapsibleList>
-                <template slot="header">Operacional</template>
+                <template slot="header">CRUD</template>
                 <ul class="menu">
                   <router-link
-                    to="/home"
+                    to="/grower"
                     tag="li"
                     class="menu-item"
                     exact-active-class="active"
                     exact
                   >
-                    <i class="fas fa-edit icon" />
-                    <span>Teste</span>
+                    <i class="fas fa-shopping-cart icon" />
+                    <span>Grower</span>
+                  </router-link>
+                  <router-link
+                    to="/properties"
+                    tag="li"
+                    class="menu-item"
+                    exact-active-class="active"
+                    exact
+                  >
+                    <i class="fas fa-cogs icon" />
+                    <span>Properties</span>
                   </router-link>
                 </ul>
               </CollapsibleList>
               <div class="divider vertical" />
-              <CollapsibleList>
-                <template slot="header">Financeiro</template>
-                <ul class="menu">
-                  <router-link
-                    to="contas-a-pagar"
-                    tag="li"
-                    class="menu-item"
-                    exact-active-class="active"
-                    exact
-                  >
-                    <i class="fas fa-edit icon" />
-                    <span>Contas a Pagar</span>
-                  </router-link>
-                  <router-link
-                    to="input-table"
-                    tag="li"
-                    class="menu-item"
-                    exact-active-class="active"
-                    exact
-                  >
-                    <i class="fas fa-edit icon" />
-                    <span>Input Table</span>
-                  </router-link>
-                  <router-link
-                    to="data-types"
-                    tag="li"
-                    class="menu-item"
-                    exact-active-class="active"
-                    exact
-                  >
-                    <i class="fas fa-edit icon" />
-                    <span>Data Types</span>
-                  </router-link>
-                </ul>
-              </CollapsibleList>
-              <div class="divider vertical" />
+              <ul class="menu">
+                <router-link
+                  to="/qrcode-scanner"
+                  tag="li"
+                  class="menu-item"
+                  exact-active-class="active"
+                  exact
+                >
+                  <i class="fas fa-qrcode icon"></i>
+                  <span>QRCode Scanner</span>
+                </router-link>
+              </ul>
             </div>
           </transition>
           <div class={{ content: true, isOpen: this.isOpen }}>

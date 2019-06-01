@@ -36,7 +36,7 @@
         @blur="blur"
         :value="value != null ? {id: value, text: type[value]} : null"
         v-else-if="(typeof type === 'object')"
-        :search="query => filterObjectType(query)"
+        :search="filterObjectType"
       ></Suggest>
     </template>
     <template v-else-if="value != null">

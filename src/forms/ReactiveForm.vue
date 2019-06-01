@@ -7,6 +7,7 @@ import RichTextInput from "@/components/RichTextInput.vue";
 import Radio from "@/components/Radio.vue";
 import Tabs from "@/components/Tabs.vue";
 import InnerLoading from "@/components/InnerLoading.vue";
+import Suggest from "@/components/Suggest.vue";
 import { setTimeout } from "timers";
 
 export default {
@@ -22,6 +23,10 @@ export default {
     schema: {
       type: Function,
       required: true
+    },
+    initialState: {
+      type: Object,
+      required: false
     },
     save: {
       type: Function,
@@ -132,7 +137,7 @@ export default {
           );
         }
         case "select":
-          return (
+          return field.options.length < 4 ? (
             <div class="button-group">
               {field.options.map(option => {
                 return (
@@ -149,6 +154,16 @@ export default {
                 );
               })}
             </div>
+          ) : (
+            <Suggest
+              inputValueRenderer={val => val != null ? val.label : ''}
+              value={this.state[field.name] != null ? field.options.find(option => option.value === this.state[field.name]) : null}
+              onFocus={() => this.$delete(this.errors, field.name)}
+              onInput={val => this.$set(this.state, field.name, val.value)}
+              search={query =>
+                field.options.filter(option => option.label.includes(query))
+              }
+            />
           );
           break;
         case "html":
@@ -182,7 +197,6 @@ export default {
           break;
       }
     },
-
     renderHintOrError(field) {
       if (this.errors[field.name]) {
         return (
@@ -258,12 +272,16 @@ export default {
       }));
     }
   },
+  created() {
+    this.tab = this.tabs[0]["id"];
+    this.state = this.initialState || {};
+  },
   data() {
     return {
-      tab: "Dados Básicos",
+      tab: null,
       loading: false,
       errors: {},
-      state: {}
+      state: null
     };
   }
 };

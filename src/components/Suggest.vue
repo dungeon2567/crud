@@ -7,7 +7,7 @@
     @keydown="onKeyDown"
     @focus="onFocus"
     @blur="onBlur"
-    :placeholder="value ? inputValueRenderer(value) : placeholder"
+    :placeholder="value != null ? inputValueRenderer(value) : placeholder"
   >
     <Popover
       ref="itemsPopover"
@@ -16,16 +16,22 @@
       @hide="onHide"
       placement="bottom-start"
     >
-      <ul class="menu scroll-container" :style="{maxHeight: '300px'}">
-        <li :class="{'menu-item': true, 'disabled': true}" v-if="items.length === 0">Sem Resultados</li>
+      <ul
+        class="menu scroll-container"
+        :style="{maxHeight: '300px'}"
+      >
+        <li
+          :class="{'menu-item': true, 'disabled': true}"
+          v-if="items.length === 0"
+        >Sem Resultados</li>
         <li
           :class="{'menu-item': true, 'active': index === selectedIndex}"
           @click="onItemClick($event, item)"
           :key="item.id"
           v-for="(item, index) in items"
         >
-          <pre v-html="renderHtml(inputValueRenderer(item))"/>
-        </li>
+          <pre v-html="renderHtml(inputValueRenderer(item))" />
+          </li>
       </ul>
     </Popover>
     <slot name="after">
@@ -81,10 +87,13 @@ export default {
     };
   },
   watch: {
-    value(newVal, oldVal) {
-      if (newVal != oldVal && !this.focused) {
-        this.query = this.inputValueRenderer(this.value);
-      }
+    value: {
+      handler(newVal, oldVal) {
+        if (newVal != oldVal && !this.focused) {
+          this.query = this.inputValueRenderer(this.value);
+        }
+      },
+      immediate: true
     },
     query: {
       immediate: true,
@@ -149,10 +158,15 @@ export default {
     onKeyDown(e) {
       switch (e.keyCode) {
         case 13:
-          this.$emit("input", this.items[this.selectedIndex]);
+          const item = this.items[this.selectedIndex];
+          {
+            this.$emit("input", this.items[this.selectedIndex]);
 
-          this.$refs.input.blur();
-          this.$refs.itemsPopover.close();
+            this.query = this.inputValueRenderer(item);
+
+            this.$refs.input.blur();
+            this.$refs.itemsPopover.close();
+          }
 
           break;
         case 38:
@@ -175,7 +189,7 @@ export default {
           break;
         case 8:
           if (this.query.length === 0) {
-            this.$emit('remove');
+            this.$emit("remove");
           }
           break;
         case 9:

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Grower from './pages/Grower.vue'
+import Properties from './pages/Properties.vue'
+import QRCodeScanner from './pages/QRCodeScanner.vue'
 
 Vue.use(Router)
 
@@ -8,20 +10,16 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: '/home',
-      component: Home
+      path: '/grower',
+      component: Grower
     },
     {
-      path: '/ordem-de-servico',
-      component: () => import('./views/OrdemServico.vue')
+      path: '/properties',
+      component: Properties
     },
     {
-      path: '/data-types',
-      component: () => import('./views/DataTypes.vue')
+      path: '/qrcode-scanner',
+      component: QRCodeScanner
     },
-    {
-      path: '/input-table',
-      component: () => import('./views/InputTable.vue')
-    }
   ]
 })
