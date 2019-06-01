@@ -72,6 +72,8 @@ export default {
     async editProperty(property) {
       var {grower, id, ...initialState} = property;
 
+      console.log(initialState);
+
       await this.$root.openForm(ReactiveForm, {
         header: "Editar property",
         initialState,
@@ -89,7 +91,7 @@ export default {
                 {
                   name: "total_area",
                   label: "Área Total",
-                  type: "text"
+                  type: "number"
                 },
                 {
                   name: "city",
@@ -161,7 +163,6 @@ export default {
           field: "id",
           label: "Id",
           type: "text",
-          multiple: false,
           visible: true
         },
         {
@@ -169,7 +170,6 @@ export default {
           field: "name",
           label: "Nome",
           type: "text",
-          multiple: false,
           visible: true
         },
         {
@@ -177,7 +177,6 @@ export default {
           field: "total_area",
           label: "Área Total",
           type: "number",
-          multiple: false,
           visible: true
         },
         {
@@ -185,7 +184,6 @@ export default {
           field: "city",
           label: "Cidade",
           type: "text",
-          multiple: false,
           visible: true
         },
         {
@@ -193,7 +191,6 @@ export default {
           field: "grower",
           label: "Grower",
           type: "grower",
-          multiple: false,
           visible: true
         }
       ]

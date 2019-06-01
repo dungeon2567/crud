@@ -7,7 +7,8 @@ import RichTextInput from "@/components/RichTextInput.vue";
 import Radio from "@/components/Radio.vue";
 import InnerLoading from "@/components/InnerLoading.vue";
 import Suggest from "@/components/Suggest.vue";
-import { setTimeout } from "timers";
+import MultipleSuggest from "@/components/MultipleSuggest.vue";
+import NumberInput from '../components/NumberInput.vue';
 
 export default {
   props: {
@@ -116,6 +117,15 @@ export default {
               value={this.state[field.name]}
             />
           );
+        case "number": {
+          return (
+            <NumberInput
+              onFocus={() => this.$delete(this.errors, field.name)}
+              onInput={val => this.$set(this.state, field.name, val)}
+              value={this.state[field.name]}
+            />
+          );
+        }
         case "text": {
           const directives = field.mask
             ? [
@@ -138,21 +148,65 @@ export default {
         case "select":
           return field.options.length < 4 ? (
             <div class="button-group">
-              {field.options.map(option => {
-                return (
-                  <Button
-                    class={{ primary: this.state[field.name] === option.value }}
-                    value={this.state[field.name] === option.value}
-                    onFocus={() => this.$delete(this.errors, field.name)}
-                    onClick={() =>
-                      this.$set(this.state, field.name, option.value)
-                    }
-                  >
-                    {option.label}
-                  </Button>
-                );
-              })}
+              {field.multiple
+                ? field.options.map(option => {
+                    return (
+                      <Button
+                        class={{
+                          primary: this.state[field.name].some(
+                            item => item.value === option.value
+                          )
+                        }}
+                        onFocus={() => this.$delete(this.errors, field.name)}
+                        onClick={() => {
+                          let index = this.state[field.name].findIndex(
+                            item => item.value === option.value
+                          );
+
+                          if (index === -1) {
+                            this.state[field.name].push(option);
+                          } else {
+                            this.state[field.name].splice(index, 1);
+                          }
+                        }}
+                      >
+                        {option.label}
+                      </Button>
+                    );
+                  })
+                : field.options.map(option => {
+                    return (
+                      <Button
+                        class={{
+                          primary: this.state[field.name] === option.value
+                        }}
+                        onFocus={() => this.$delete(this.errors, field.name)}
+                        onClick={() =>
+                          this.$set(this.state, field.name, option.value)
+                        }
+                      >
+                        {option.label}
+                      </Button>
+                    );
+                  })}
             </div>
+          ) : field.multiple ? (
+            <MultipleSuggest
+              value={this.state[field.name]}
+              onFocus={() => this.$delete(this.errors, field.name)}
+              onInput={val => this.$set(this.state, field.name, val.value)}
+              search={query =>
+                field.options.filter(
+                  option =>
+                    option.label
+                      .substring(0, query.length)
+                      .localeCompare(query, "pt-BR", {
+                        usage: "search",
+                        sensitivity: "base"
+                      }) === 0
+                )
+              }
+            />
           ) : (
             <Suggest
               inputValueRenderer={val => (val != null ? val.label : "")}
@@ -255,7 +309,7 @@ export default {
               return (
                 <div class="form-group">
                   <label>{group.label}</label>
-                  <div class="divider vertical" style="width: 100%" />
+                  <div class="divider vertical"/>
                   {this.renderFormGroup(group)}
                 </div>
               );

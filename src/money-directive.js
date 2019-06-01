@@ -1,13 +1,8 @@
 
-import {format, setCursor, event, defaults, select} from './utils'
+import {format, setCursor, event, select} from './utils'
 
 function install (Vue) {
-   function VMoney(el, opt) {
-     opt = {
-      ... defaults,
-       ...opt
-     };
-
+   function VMoney(el) {
     if (el.tagName !== 'INPUT') {
       var els = el.getElementsByTagName('INPUT');
 
@@ -21,9 +16,9 @@ function install (Vue) {
     el.oninput = function () {
       var positionFromEnd = el.value.length - el.selectionEnd
       el.value = format(el.value)
-      positionFromEnd = Math.max(positionFromEnd, opt.suffix.length)
+      positionFromEnd = Math.max(positionFromEnd, 0)
       positionFromEnd = el.value.length - positionFromEnd
-      positionFromEnd = Math.max(positionFromEnd, opt.prefix.length + 1)
+      positionFromEnd = Math.max(positionFromEnd, 1)
       setCursor(el, positionFromEnd)
       el.dispatchEvent(event('change'))
     }

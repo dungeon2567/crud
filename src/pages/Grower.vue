@@ -152,7 +152,10 @@ export default {
           label: "CPF",
           type: "text",
           multiple: false,
-          visible: true
+          visible: true,
+          rules: [
+            val => val.length === 0 && "O Campo CPF é obrigatório"
+          ]
         }
       ]
     };

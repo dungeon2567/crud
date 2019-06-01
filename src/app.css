@@ -286,7 +286,7 @@ label {
 	padding-left: 8px;
 }
 
-.form-group > .separator {
+.form-group > .divider {
 	width: 100%;
 }
 
@@ -296,6 +296,7 @@ label {
 	flex-grow: 1;
 	flex-shrink: 0;
 	flex-basis: 100%;
+	max-width: 100%;
 }
 
 .field-bottom {
@@ -316,12 +317,15 @@ label {
 	.form-field.text {
 		flex-basis: 50%;
 	}
+	
 	.form-field.date {
 		flex-basis: 50%;
 	}
+
 	.form-field.select:not(.small) {
 		flex-basis: 50%;
 	}
+
 	.form-field.select.small {
 		flex-grow: 0;
 		flex-basis: auto;

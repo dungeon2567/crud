@@ -45,6 +45,7 @@
   cursor: text;
   flex-grow: 1;
   margin: 2px;
+  max-width: 100%;
 }
 
 .tag-input-content .input-container {
@@ -55,6 +56,7 @@
   align-items: center;
   position: relative;
   margin: 2px;
+
 }
 
 .tag {
@@ -66,6 +68,14 @@
   align-items: center;
   margin: 2px;
   height: 20px;
+  max-width: calc(100% - 8px);
+}
+
+.tag-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 15px);
 }
 
 .tag > .tag-remove {
@@ -74,6 +84,9 @@
   opacity: 0.5;
   font-size: 16px;
   margin-left: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tag > .tag-remove:hover {
@@ -83,27 +96,44 @@
 
 <template>
   <div :class="{'tag-input': true, minimal: minimal}">
-    <Popover ref="itemsPopover" trigger="focus" @show="onShow" @hide="onHide" placement="bottom-start">
-      <ul class="menu scroll-container" :style="{maxHeight: '300px'}">
-        <li :class="{'menu-item': true, 'disabled': true}" v-if="items.length === 0">
+    <Popover
+      ref="itemsPopover"
+      trigger="focus"
+      @show="onShow"
+      @hide="onHide"
+      placement="bottom-start"
+    >
+      <ul
+        class="menu scroll-container"
+        :style="{maxHeight: '300px'}"
+      >
+        <li
+          :class="{'menu-item': true, 'disabled': true}"
+          v-if="items.length === 0"
+        >
           Sem Resultados
         </li>
-        <li :class="{'menu-item': true, 'active': index === selectedIndex}" @click="toggle(item)" :key="item.id" v-for="(item, index) in items">
+        <li
+          :class="{'menu-item': true, 'active': index === selectedIndex}"
+          @click="toggle(item)"
+          :key="item.value"
+          v-for="(item, index) in items"
+        >
           <i :class="`${selected(item) ? 'fas fa-check' : ''} icon`"></i>
-          <pre v-html="renderHtml(inputValueRenderer(item))" />
-        </li>
+          <pre v-html="renderHtml(item.label)" />
+          </li>
       </ul>
     </Popover>
-    <div class="tag-input-content" @click="focus">
-      <span class="tag" v-for="item in value" :key="item.id">
-        <span>
-          {{inputValueRenderer(item)}}
-        </span>
+    <transition-group name="tag" class="tag-input-content" @click="focus">
+      <div class="tag" v-for="item in value" :key="item.value">
+        <div class="tag-label">
+          {{item.label}}
+        </div>
         <i class="fas fa-times tag-remove" @click="toggle(item)"/>
-      </span>
-      <input ref="input" @blur="onBlur" @focus="onFocus" @keydown="onKeyDown" v-model="query" />
+      </div>
+      <input ref="input" key="input" @blur="onBlur" @focus="onFocus" @keydown="onKeyDown" v-model="query" />
+    </transition-group>
     </div>
-  </div>
 </template>
 
 <script>
@@ -131,12 +161,6 @@ export default {
       type: Function,
       default: query => {
         return [];
-      }
-    },
-    inputValueRenderer: {
-      type: Function,
-      default: function(val) {
-        return val ? val.text : "";
       }
     }
   },
@@ -180,7 +204,7 @@ export default {
       for (var i = 0; i < this.value.length; ++i) {
         const val = this.value[i];
 
-        if (val.id === item.id) {
+        if (val.value === item.value) {
           return true;
         }
       }
@@ -200,7 +224,7 @@ export default {
           for (var it = 0; it < this.items.length; ++it) {
             var item = this.items[it];
 
-            if (item.id === this.value.id) {
+            if (item.value === this.value.value) {
               this.selectedIndex = it;
               break;
             }
@@ -280,7 +304,7 @@ export default {
       for (var i = 0; i < this.value.length; ++i) {
         const val = this.value[i];
 
-        if (val.id === item.id) {
+        if (val.value === item.value) {
           this.value.splice(i, 1);
           return;
         }
@@ -291,3 +315,30 @@ export default {
   }
 };
 </script>
+
+<style>
+.tag-enter-active,
+.tag-leave-active {
+  transition-duration: 200ms;
+  transition-property: transform, opacity;
+}
+
+.tag-enter-active {
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.tag-leave-active {
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  position: absolute;
+}
+
+.tag-enter,
+.tag-leave-to {
+  transform: scale(0.7);
+  opacity: 0;
+}
+
+.tag-move {
+  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+</style>

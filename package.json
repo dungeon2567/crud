@@ -9,6 +9,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.4.5",
     "@zxing/library": "^0.12.4",
+    "accounting-js": "^1.1.1",
     "cuid": "^2.1.6",
     "normalize.css": "^8.0.1",
     "popper.js": "^1.15.0",

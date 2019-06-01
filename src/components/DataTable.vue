@@ -4,6 +4,8 @@ import Dropdown from "./Dropdown.vue";
 import Checkbox from "./Checkbox.vue";
 import Button from "./Button.vue";
 
+import accounting from "accounting-js";
+
 export default {
   props: {
     columns: {
@@ -160,7 +162,11 @@ export default {
         case "date":
           return [<i class="far fa-clock table-cell-icon" />, val.formatDate()];
         case "number":
-          return val;
+          return accounting.formatNumber(val, {
+            precision: 2,
+            decimal: ",",
+            thousand: "."
+          });
         default:
           return val;
       }

@@ -88,7 +88,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		value: [String, Object, Number],
+		value: String,
 		clearable: {
 			type: Boolean,
 			default: false,

@@ -1,9 +1,3 @@
-let defaults = {
-	thousands: '.',
-	decimal: ',',
-	precision: 2
-}
-
 function throttle(func, wait) {
 	var context, args;
 	var timeout = null;
@@ -34,20 +28,20 @@ function throttle(func, wait) {
 	};
 }
 
-function format(input, opt = defaults) {
+function format(input) {
 	if (typeof input === 'number') {
-		input = input.toFixed(fixed(opt.precision))
+		input = input.toFixed(fixed(2))
 	}
 
 	var negative = input.indexOf('-') >= 0 ? '-' : ''
 
 	var numbers = onlyNumbers(input)
-	var currency = numbersToCurrency(numbers, opt.precision)
+	var currency = numbersToCurrency(numbers, 2)
 	var parts = toStr(currency).split('.')
 	var integer = parts[0]
 	var decimal = parts[1]
-	integer = addThousandSeparator(integer, opt.thousands)
-	return negative + joinIntegerAndDecimal(integer, decimal, opt.decimal);
+	integer = addThousandSeparator(integer, '.')
+	return negative + joinIntegerAndDecimal(integer, decimal, ',');
 }
 
 function unformat(input, precision) {
@@ -61,7 +55,6 @@ function onlyNumbers(input) {
 	return toStr(input).replace(/\D+/g, '') || '0'
 }
 
-// Uncaught RangeError: toFixed() digits argument must be between 0 and 20 at Number.toFixed
 function fixed(precision) {
 	return between(0, precision, 20)
 }
@@ -227,6 +220,5 @@ export {
 	setCursor,
 	event,
 	between,
-	defaults,
 	select
 };
