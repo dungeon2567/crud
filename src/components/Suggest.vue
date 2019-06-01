@@ -12,8 +12,8 @@
     <Popover
       ref="itemsPopover"
       trigger="focus"
-      @show="onShow"
-      @hide="onHide"
+      @open="onShow"
+      @close="onHide"
       placement="bottom-start"
     >
       <ul
@@ -96,14 +96,12 @@ export default {
       immediate: true
     },
     query: {
-      immediate: true,
       handler(newVal, oldVal) {
-        this.dirt = newVal !== this.inputValueRenderer(this.value);
-
         if (this.isOpen) {
           this.throttleSearch(newVal);
         }
-      }
+      },
+      immediate: true
     }
   },
   methods: {
@@ -158,14 +156,17 @@ export default {
     onKeyDown(e) {
       switch (e.keyCode) {
         case 13:
-          const item = this.items[this.selectedIndex];
           {
-            this.$emit("input", this.items[this.selectedIndex]);
+            const item = this.items[this.selectedIndex];
+
+            this.$emit("input", item);
 
             this.query = this.inputValueRenderer(item);
 
-            this.$refs.input.blur();
-            this.$refs.itemsPopover.close();
+            this.$nextTick(() => {
+              this.$refs.input.blur();
+              this.$refs.itemsPopover.close()
+            });
           }
 
           break;
@@ -205,9 +206,7 @@ export default {
 
       this.items = [];
 
-      if (this.dirt) {
-        this.query = this.inputValueRenderer(this.value);
-      }
+      this.query = this.inputValueRenderer(this.value);
 
       this.$emit("hide");
     },

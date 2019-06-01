@@ -5,7 +5,6 @@ import TextInput from "@/components/TextInput.vue";
 import DateInput from "@/components/DateInput.vue";
 import RichTextInput from "@/components/RichTextInput.vue";
 import Radio from "@/components/Radio.vue";
-import Tabs from "@/components/Tabs.vue";
 import InnerLoading from "@/components/InnerLoading.vue";
 import Suggest from "@/components/Suggest.vue";
 import { setTimeout } from "timers";
@@ -156,12 +155,26 @@ export default {
             </div>
           ) : (
             <Suggest
-              inputValueRenderer={val => val != null ? val.label : ''}
-              value={this.state[field.name] != null ? field.options.find(option => option.value === this.state[field.name]) : null}
+              inputValueRenderer={val => (val != null ? val.label : "")}
+              value={
+                this.state[field.name] != null
+                  ? field.options.find(
+                      option => option.value === this.state[field.name]
+                    )
+                  : null
+              }
               onFocus={() => this.$delete(this.errors, field.name)}
               onInput={val => this.$set(this.state, field.name, val.value)}
               search={query =>
-                field.options.filter(option => option.label.includes(query))
+                field.options.filter(
+                  option =>
+                    option.label
+                      .substring(0, query.length)
+                      .localeCompare(query, "pt-BR", {
+                        usage: "search",
+                        sensitivity: "base"
+                      }) === 0
+                )
               }
             />
           );
@@ -213,7 +226,12 @@ export default {
     renderFormGroup(group) {
       return group.fields.map(field => {
         return (
-          <div class={`form-field ${field.type}`} key={field.name}>
+          <div
+            class={`form-field ${field.type}${
+              field.type === "select" && field.options < 4 ? " small" : ""
+            }`}
+            key={field.name}
+          >
             <label>{field.label}</label>
             <div>
               {this.renderFieldInput(field)}
@@ -224,7 +242,6 @@ export default {
       });
     }
   },
-
   render(h) {
     return (
       <Overlay
@@ -234,20 +251,15 @@ export default {
         scopedSlots={{
           header: () => this.header,
           body: () => {
-            return (
-              <Tabs
-                onInput={val => (this.tab = val)}
-                value={this.tab}
-                tabs={this.tabs}
-                scopedSlots={this.formSchema.reduce((acc, group) => {
-                  acc[group.label] = () => (
-                    <div class="form">{this.renderFormGroup(group)}</div>
-                  );
-
-                  return acc;
-                }, {})}
-              />
-            );
+            return this.formSchema.map(group => {
+              return (
+                <div class="form-group">
+                  <label>{group.label}</label>
+                  <div class="divider vertical" style="width: 100%" />
+                  {this.renderFormGroup(group)}
+                </div>
+              );
+            });
           },
           footer: () => [
             <Button onClick={() => this.reject("kkk")}>Cancelar</Button>,
@@ -263,22 +275,13 @@ export default {
   computed: {
     formSchema() {
       return this.schema(this.state);
-    },
-    tabs() {
-      return this.formSchema.map(group => ({
-        id: group.label,
-        title: group.label,
-        error: group.fields.some(field => this.errors[field.name])
-      }));
     }
   },
   created() {
-    this.tab = this.tabs[0]["id"];
     this.state = this.initialState || {};
   },
   data() {
     return {
-      tab: null,
       loading: false,
       errors: {},
       state: null

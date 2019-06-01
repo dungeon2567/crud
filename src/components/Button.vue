@@ -90,6 +90,16 @@ button.success.active {
   background-color: var(--success-color-active);
 }
 
+button.success:disabled {
+  cursor: not-allowed !important;
+  border-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: var(--success-color-disabled);
+  background-image: none;
+  color: var(--success-color-contrast);
+}
+
 button.warning {
   background-color: var(--warning-color);
   color: var(--warning-color-contrast);
@@ -119,14 +129,13 @@ button.danger.active {
 }
 
 button.danger:disabled {
-  color: rgba(92, 112, 128, 0.5);
   cursor: not-allowed !important;
   border-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background-color: rgba(219, 55, 55, 0.5);
+  background-color: var(--danger-color-disabled);
   background-image: none;
-  color: hsla(0, 0%, 100%, 0.6);
+  color: var(--danger-color-contrast);
 }
 
 button.minimal {

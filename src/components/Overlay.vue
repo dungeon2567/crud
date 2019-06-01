@@ -36,12 +36,11 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background: var(--primary-color);
-  color: var(--primary-color-contrast);
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px rgba(0, 0, 0, 0.14), 0 1px 10px rgba(0, 0, 0, 0.12);
+  background: white;
   z-index: 21;
   padding: 10px;
   flex-shrink: 0;
+  border-bottom: 1px solid #cccccc;
 }
 
 .overlay-footer {
