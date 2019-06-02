@@ -59,9 +59,11 @@ export default {
   },
   methods: {
     async editGrower(grower) {
+      const { id, ...initialState } = grower;
+
       var data = await this.$root.openForm(ReactiveForm, {
         header: "Editar grower",
-        initialState: grower,
+        initialState,
         schema: state => {
           return [
             {
@@ -87,7 +89,7 @@ export default {
         save: newState => {
           return fetch(
             `https://my-json-server.typicode.com/pedroskakum/fake-api/grower/${
-              grower.id
+              id
             }`,
             {
               method: "PATCH",
@@ -153,9 +155,7 @@ export default {
           type: "text",
           multiple: false,
           visible: true,
-          rules: [
-            val => val.length === 0 && "O Campo CPF é obrigatório"
-          ]
+          rules: [val => val.length === 0 && "O Campo CPF é obrigatório"]
         }
       ]
     };

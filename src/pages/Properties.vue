@@ -70,9 +70,7 @@ export default {
   },
   methods: {
     async editProperty(property) {
-      var {grower, id, ...initialState} = property;
-
-      console.log(initialState);
+      const { grower, id, ...initialState } = property;
 
       await this.$root.openForm(ReactiveForm, {
         header: "Editar property",
@@ -113,9 +111,7 @@ export default {
         },
         save: newState => {
           return fetch(
-            `https://my-json-server.typicode.com/pedroskakum/fake-api/properties/${
-              property.id
-            }`,
+            `https://my-json-server.typicode.com/pedroskakum/fake-api/properties/${id}`,
             {
               method: "PATCH",
               body: JSON.stringify(newState)

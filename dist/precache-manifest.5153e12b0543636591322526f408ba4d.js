@@ -1,14 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "67e4a7cdd06342c2d515",
-    "url": "/css/app.e234c611.css"
+    "revision": "5949505a61c83c8634a8",
+    "url": "/css/app.730184a5.css"
   },
   {
-    "revision": "48bd26c8bc7c4c4fe72c",
-    "url": "/css/chunk-0de5bf28.1399107e.css"
-  },
-  {
-    "revision": "b6403453dc46b1f407a0",
+    "revision": "c8d7d541c725e96f041c",
     "url": "/css/chunk-vendors.391ed6f9.css"
   },
   {
@@ -64,7 +60,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/icons/mstile-150x150.png"
   },
   {
-    "revision": "f22d501a35a87d9f21701cb031f6ea17",
+    "revision": "f78c0251d6ddd56ee219a1830ded71b4",
     "url": "/img/icons/safari-pinned-tab.svg"
   },
   {
@@ -72,35 +68,23 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/logo.404c148a.png"
   },
   {
-    "revision": "382afef117df79bd6557a855725ca3e5",
+    "revision": "7a0ec8678544771d0e32165dd04c0405",
     "url": "/index.html"
   },
   {
-    "revision": "67e4a7cdd06342c2d515",
-    "url": "/js/app.c28c4189.js"
+    "revision": "5949505a61c83c8634a8",
+    "url": "/js/app.8edd306f.js"
   },
   {
-    "revision": "48bd26c8bc7c4c4fe72c",
-    "url": "/js/chunk-0de5bf28.5350c4a5.js"
+    "revision": "c8d7d541c725e96f041c",
+    "url": "/js/chunk-vendors.db1ee2cf.js"
   },
   {
-    "revision": "7b669fa911b2b87eb11a",
-    "url": "/js/chunk-2d0a447c.0cb9456a.js"
-  },
-  {
-    "revision": "c1eee838ba5706674820",
-    "url": "/js/chunk-2d0e613e.446af825.js"
-  },
-  {
-    "revision": "b6403453dc46b1f407a0",
-    "url": "/js/chunk-vendors.6c3c8479.js"
-  },
-  {
-    "revision": "483078cfeaf8050a920d7386070d4dc8",
+    "revision": "c87ad8004b8b317fcafc41adb80b66c8",
     "url": "/manifest.json"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "revision": "735ab4f94fbcd57074377afca324c813",
     "url": "/robots.txt"
   }
 ]);

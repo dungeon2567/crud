@@ -2,9 +2,10 @@
 import { throttle } from "../utils.js";
 import Suggest from "./Suggest.vue";
 import DateInput from "./DateInput.vue";
-import DateRangeInput from "./DateRangeInput.vue";
 import TextInput from "./TextInput.vue";
+import NumberInput from "./NumberInput.vue";
 import Button from "./Button.vue";
+import accounting from "accounting-js";
 
 export default {
   props: {
@@ -111,7 +112,13 @@ export default {
       switch (type) {
         case "date":
           return predicate.value.formatDate();
-          break;
+        case "number":
+          return accounting.formatNumber(predicate.value, {
+            precision: 2,
+            decimal: ",",
+            thousand: "."
+          });
+
         default:
           return `"${predicate.value}"`;
       }
@@ -132,7 +139,23 @@ export default {
               value={this.filter.value}
             />
           );
-          break;
+        case "number":
+          return (
+            <NumberInput
+              placeholder="Valor"
+              onRemove={this.removeValue}
+              onBlur={() => this.filter.value && this.createPredicate()}
+              onKeydown={event =>
+                event.keyCode === 13 &&
+                this.filter.value &&
+                this.createPredicate()
+              }
+              minimal
+              ref="val"
+              onInput={event => (this.filter.value = event)}
+              value={this.filter.value}
+            />
+          );
         default:
           return (
             <TextInput

@@ -1,6 +1,4 @@
-importScripts("/precache-manifest.b2d8cf2f911196ab4fcdd9372eee6de5.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+importScripts("/precache-manifest.5153e12b0543636591322526f408ba4d.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 workbox.precaching.cleanupOutdatedCaches();
 
@@ -18,6 +16,7 @@ workbox.precaching.precacheAndRoute(
     "https://fonts.googleapis.com/css?family=Roboto:400,700"
   ].concat(self.__precacheManifest)
 );
+
 
 workbox.routing.registerNavigationRoute(
     workbox.precaching.getCacheKeyForURL('/index.html')
