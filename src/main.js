@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VueTheMask from 'vue-the-mask'
-import money from './money-directive';
+import Notifications from './plugins/Notifications';
+import Forms from './plugins/Forms';
 
 import "normalize.css";
 import './app.css';
@@ -59,28 +60,15 @@ Vue.component('FilterBuilder', FilterBuilder);
 Vue.directive('resize', ResizeDirective);
 
 Vue.use(VueTheMask);
-Vue.use(money);
-
+Vue.use(Notifications);
+Vue.use(Forms);
 
 Vue.config.productionTip = false
 
-import cuid from "cuid";
 import './registerServiceWorker'
 
 
 new Vue({
   router,
-  methods: {
-    openForm(component, params) {
-      return new Promise((resolve, reject) => {
-        this.forms.push({ id: cuid(), component, params, accept: resolve, reject });
-      });
-    }
-  },
-  data() {
-    return {
-      forms: []
-    }
-  },
   render: h => h(App)
 }).$mount('#app')

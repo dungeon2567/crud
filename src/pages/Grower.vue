@@ -61,7 +61,7 @@ export default {
     async editGrower(grower) {
       const { id, ...initialState } = grower;
 
-      var data = await this.$root.openForm(ReactiveForm, {
+      var data = await this.$forms.open(ReactiveForm, {
         header: "Editar grower",
         initialState,
         schema: state => {
@@ -88,15 +88,17 @@ export default {
         },
         save: newState => {
           return fetch(
-            `https://my-json-server.typicode.com/pedroskakum/fake-api/grower/${
-              id
-            }`,
+            `https://my-json-server.typicode.com/pedroskakum/fake-api/grower/${id}`,
             {
               method: "PATCH",
               body: JSON.stringify(newState)
             }
           ).then(response => {
-            alert("Grower editado com sucesso!");
+            this.$notifications.add({
+              message: "Grower editado com sucesso!",
+              intent: "success",
+              icon: "fas fa-check-circle"
+            });
           });
         }
       });
@@ -110,7 +112,11 @@ export default {
               method: "DELETE"
             }
           ).then(response => {
-            alert(`Grower ${id} deletado com sucesso!`);
+            this.$notifications.add({
+              message: `Grower ${id} deletado com successo!`,
+              intent: "success",
+              icon: "fas fa-trash"
+            });
           })
         )
       );
@@ -124,7 +130,11 @@ export default {
           method: "DELETE"
         }
       ).then(response => {
-        alert("Grower deletado com sucesso!");
+        this.$notifications.add({
+          message: `Grower deletado com successo!`,
+          intent: "success",
+          icon: "fas fa-trash"
+        });
       });
     }
   },

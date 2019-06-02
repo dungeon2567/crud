@@ -224,7 +224,7 @@ export default {
       if (this.showPopper) {
         this.close();
       } else {
-        this.open();
+        this.show();
       }
     },
     show() {

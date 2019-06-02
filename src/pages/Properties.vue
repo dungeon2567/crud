@@ -72,7 +72,7 @@ export default {
     async editProperty(property) {
       const { grower, id, ...initialState } = property;
 
-      await this.$root.openForm(ReactiveForm, {
+      await this.$forms.open(ReactiveForm, {
         header: "Editar property",
         initialState,
         schema: state => {
@@ -117,7 +117,11 @@ export default {
               body: JSON.stringify(newState)
             }
           ).then(response => {
-            alert("Property editada com sucesso!");
+            this.$notifications.add({
+              message: "Property editada com successo!",
+              intent: "success",
+              icon: "fas fa-check-circle"
+            });
           });
         }
       });
@@ -131,7 +135,11 @@ export default {
               method: "DELETE"
             }
           ).then(response => {
-            alert(`Property ${id} deletada com sucesso!`);
+            this.$notifications.add({
+              message: `Property ${id} deletada com successo!`,
+              intent: "success",
+              icon: "fas fa-trash"
+            });
           })
         )
       );
@@ -145,7 +153,11 @@ export default {
           method: "DELETE"
         }
       ).then(response => {
-        alert("Grower deletado com sucesso!");
+        this.$notifications.add({
+          message: `Property deletada com successo!`,
+          intent: "success",
+          icon: "fas fa-trash"
+        });
       });
     }
   },

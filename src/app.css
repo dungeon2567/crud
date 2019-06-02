@@ -31,11 +31,11 @@ body {
 	--primary-color-hover: #106ba3;
 	--primary-color-active: #0e5a8a;
 	--primary-color-contrast: #fff;
-	--sucess-color: #0f9960;
-	--sucess-color-hover: #0d8050;
-	--sucess-color-active: #0a6640;
+	--success-color: #0f9960;
+	--success-color-hover: #0d8050;
+	--success-color-active: #0a6640;
 	--succes-color-disabled: rgba(15, 153, 96, .5);
-	--sucess-color-contrast: #fff;
+	--success-color-contrast: #fff;
 	--warning-color: #d9822b;
 	--warning-color-hover: #bf7326;
 	--warning-color-active: #a66321;
@@ -278,7 +278,7 @@ label {
 	padding: 8px;
 }
 
-.form-group > label {
+.form-group>label {
 	font-size: 16px;
 	font-weight: bold;
 	color: black;
@@ -286,10 +286,9 @@ label {
 	padding-left: 8px;
 }
 
-.form-group > .divider {
+.form-group>.divider {
 	width: 100%;
 }
-
 
 .form-field {
 	padding: 8px;
@@ -317,15 +316,12 @@ label {
 	.form-field.text {
 		flex-basis: 50%;
 	}
-	
 	.form-field.date {
 		flex-basis: 50%;
 	}
-
 	.form-field.select:not(.small) {
 		flex-basis: 50%;
 	}
-
 	.form-field.select.small {
 		flex-grow: 0;
 		flex-basis: auto;
@@ -374,4 +370,82 @@ label {
 
 ::-webkit-scrollbar-corner {
 	cursor: pointer;
+}
+
+.notification-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: auto;
+	bottom: 0;
+	pointer-events: none;
+	padding: 20px;
+	z-index: 9999;
+}
+
+.notification {
+	pointer-events: all;
+	margin-top: 20px;
+	display: flex;
+	align-items: flex-start;
+	position: relative;
+	border-radius: 3px;
+	box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 2px 4px rgba(16,22,26,.2), 0 8px 24px rgba(16,22,26,.2);
+	min-width: 300px;
+	max-width: 500px;
+	z-index: 9500;
+
+    transition-property: transform, opacity;
+    transition-duration: 1s;
+}
+
+.notification-enter, .notification-leave-to {
+    opacity: 0;
+	transform: translateY(50px);
+	z-index: 9499;
+}
+
+.notification-leave-active {
+    position: absolute;
+    margin-left: 0;
+	margin-right: 0;
+	z-index: 9499;
+}
+
+.notification.danger {
+	background: var(--danger-color);
+	color: var(--danger-color-contrast);
+}
+
+.notification.primary {
+	background: var(--primary-color);
+	color: var(--primary-color-contrast);
+}
+
+.notification.success {
+	background: var(--success-color);
+	color: var(--success-color-contrast);
+}
+
+.notification.warning {
+	background: var(--warning-color);
+	color: var(--warning-color-contrast);
+}
+
+.notification-icon {
+	font-size: 16px;
+	margin-left: 12px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.notification-message {
+  flex: 1 1 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
 }

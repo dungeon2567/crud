@@ -17,5 +17,9 @@ workbox.precaching.precacheAndRoute(
 
 
 workbox.routing.registerNavigationRoute(
-    workbox.precaching.getCacheKeyForURL('/index.html')
+  workbox.precaching.getCacheKeyForURL("/index.html"), {
+    blacklist: [
+      new RegExp('/api/.*'),
+    ]
+  }
 );

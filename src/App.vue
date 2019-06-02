@@ -96,39 +96,10 @@ export default {
             <div class="backdrop" onClick={() => (this.isOpen = false)} />
           )}
         </transition>
-        <transition-group name="overlay">
-          {this.$root.forms.map(form => {
-            const $component = form.component;
-
-            return (
-              <$component
-                {...{
-                  props: {
-                    accept: params => this.accepted(params, form),
-                    reject: params => this.rejected(params, form),
-                    ...form.params
-                  }
-                }}
-                key={form.id}
-              />
-            );
-          })}
-          />
-        </transition-group>
       </div>
     );
   },
   methods: {
-    accepted(params, form) {
-      this.$root.forms.splice(this.$root.forms.indexOf(form), 1);
-
-      form.accept(params);
-    },
-    rejected(params, form) {
-      this.$root.forms.splice(this.$root.forms.indexOf(form), 1);
-
-      form.reject(params);
-    },
     handleResize() {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
